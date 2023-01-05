@@ -1,5 +1,6 @@
 package com.bridgelabz;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -16,7 +17,8 @@ public class AddressBookMain {
         Scanner scanner = new Scanner(System.in);
         int opration;   // declared a variable
         do {   // do while = it will execute atleast one before checking the condition
-            System.out.println("1. ADD Addressbook \n2. Perform Operations into AddressBook \n3 Display all address book \n4 EXIT  ");
+            System.out.println("1. ADD Addressbook \n2. Perform Operations into AddressBook " +
+                    "\n3 Display all address book \n 4 Write Addressbooks to file \n 5 Read from file \n 6 EXIT  ");
             System.out.println("Enter the Operation Number");
             opration = scanner.nextInt();
             scanner.nextLine();
@@ -42,12 +44,28 @@ public class AddressBookMain {
                     break;
 
                 case 4:
+                    TextFileOps textfile = new TextFileOps();
+                    try{
+                        textfile.writeDataToDestination(addressBookMap);
+                    } catch (IOException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 5:
+                    textfile = new TextFileOps();
+                    try{
+                        textfile.readDataFromSource();
+                    } catch (IOException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 6:
                     System.out.println("Exiting");   // it will exit from thw whole program.
                     break;
                 default:
                     System.out.println("Enter The Wrong Opration Number");
             }
-        } while (opration != 4);
+        } while (opration != 6);
 
         System.out.println();
 
